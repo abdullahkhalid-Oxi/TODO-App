@@ -68,11 +68,30 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.l{
+  background: #000;
+}
+.border{
+  
+  border: 2px solid yellow !important;
+}
+.contain{
+  display: flex;
+  
+}
 .todo-item{
   display: flex;
   /* right: 0%; */
-  gap: 5px;
+  gap: 400px;
 }
-.l{
-  background: #000;
+.c{
+  /* display: flex; */
+  position: relative;
+ right: 0% !important;
+}
+.icons{
+  display: flex;
+  gap: 3px;
+  cursor: pointer;
 }

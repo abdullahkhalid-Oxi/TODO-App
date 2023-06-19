@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import Navbar from "./components/Navbar";
 import Textform from "./components/TextForm";
 import MapandFilter from "./components/MapandFilter";
-import Home from "./components/Home";
+import Firsthome from "./components/Firsthome"
+import Secondhome from "./components/Secondhome"
+
 
 function App(props) {
   const [count, setCount] = useState(0);
@@ -13,8 +15,11 @@ function App(props) {
       {/* <Navbar title="Heromi" name="Ahmed" />
       <Textform string="Enter here" /> */}
       {/* <MapandFilter/> */}
-
-     <Home/> 
+      
+      <p>HELO</p>
+     <Firsthome/> 
+     {/* <Secondhome/> */}
+     
 
     </>
   );
