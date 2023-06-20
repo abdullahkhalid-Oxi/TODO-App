@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Typography } from "@mui/material";
+
 
 function Firsthome() {
     const [text, setText] = useState("");
     const [todos, setTodos] = useState([""]);
     const [editingIndex, setEditingIndex] = useState(-1);
     const [check, setCheck] = useState(69);
+    const textInputRef =useRef(null);
 
     const handleOnChange = (event) => {
         setText(event.target.value);
+        console.log("event =" + event)
     };
     const handleDelete = (index) => {
         console.log(index);
@@ -15,6 +19,9 @@ function Firsthome() {
         temp.splice(index, 1);
         console.log(temp);
         setTodos(temp);
+        setText("")   
+        //              above line after clicking edit icon than delete set input to null
+        setCheck(69)
     };
 
     const handleOnClickAddbutton = () => {
@@ -25,36 +32,47 @@ function Firsthome() {
 
     const handleEdit = (index) => {
         setEditingIndex(index);
-        setCheck(1);
         setText(todos[index]);
+        textInputRef.current.focus();
+        setCheck(1);
+        setTimeout(() => {
+            textInputRef.current.setSelectionRange(0, textInputRef.current.value.length);
+          }, 0);
+        
     };
 
-    const handleUpdate = () => {
+    const handleUpdatebutton = () => {
         const updatedTodos = [...todos];
         updatedTodos[editingIndex] = text;
         setTodos(updatedTodos);
         setText("");
         setEditingIndex(-1);
-    };
-
-    const handleUpdatebutton = () => {
+        
         setCheck(69)
-        if (editingIndex !== -1) {
-            handleUpdate();
-        } 
-        // else {
-        //     setTodos([...todos, text]);
-        // }
-        setText("");
     };
 
+    // const handleKeyPress=()=>{
+
+    // }
+    const handleKeyPress =(event)=>{
+        if(event.key==="Enter" && check===69)
+        {
+            handleOnClickAddbutton();
+            event.preventDefault();
+        }
+       else if(event.key==="Enter" && check!==69)
+        {
+            handleUpdatebutton();
+            event.preventDefault();
+        }
+    }
     return (
         <>
-            <h1 className="bg-primary">TODO Application</h1>
+            <h1 className="bg-primary  ">TODO Application</h1>
             <div className="mt-4 container justify-content-center align-items-center bg-success">
                 <div className="">
                     {/* <i className="fa-solid fa-trash-can"></i> */}
-                    <input type="text" placeholder="Enter your Item here" value={text} onChange={handleOnChange} />
+                    <input type="text" ref={textInputRef} onKeyDown={handleKeyPress}  placeholder="Enter your Item here" value={text} onChange={handleOnChange} />
 
                     {text === "" ? (
                         <button
@@ -71,7 +89,7 @@ function Firsthome() {
                                 check === 69 ? (handleOnClickAddbutton) : (handleUpdatebutton)
                             }
                         >
-                            {check === 69 ? (<p> ADD ITEM</p>) : (<p>UpDate Item</p> )}
+                            {check === 69 ? (<p> ADD ITEM</p>) : (<p>UpDate Item</p>)}
                         </button>
                     )}
                 </div>
@@ -147,6 +165,25 @@ export default Firsthome;
 //     setTodos(updatedTodos);
 
 //     // Clear the text state and reset the editing index
+//     setText("");
+//     setEditingIndex(-1);
+// };
+
+
+// const handleUpdatebutton = () => {
+//     setCheck(69)
+//     if (editingIndex !== -1) {
+//         handleUpdate();
+//     }
+//     // else {
+//     //     setTodos([...todos, text]);
+//     // }
+//     setText("");
+// };
+// const handleUpdate = () => {
+//     const updatedTodos = [...todos];
+//     updatedTodos[editingIndex] = text;
+//     setTodos(updatedTodos);
 //     setText("");
 //     setEditingIndex(-1);
 // };
